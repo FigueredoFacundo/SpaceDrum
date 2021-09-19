@@ -54,5 +54,6 @@ La mecánica del juego como mencionamos anteriormente, es con desplazamiento con
 5. Como usuario quiero poder identificar cada jugador (saber quién lo maneja, y ver su puntaje)
 
 # Notas:
-_(*1) Una sala puede estar activa para que ingresen jugadores mientras un juego no esté activo en la misma. Aún así, debe aparecer en la lista de juegos como que el juego ya inició
-(*2) La partida podrá ser iniciada por el creador de la sala, o cuando todos los jugadores estén listos, o cualquier otra condición que consideren_
+_(*1) Una sala puede estar activa para que ingresen jugadores mientras un juego no esté activo en la misma. Aún así, debe aparecer en la lista de juegos como que el juego ya inició_
+
+_(*2) La partida podrá ser iniciada por el creador de la sala, o cuando todos los jugadores estén listos, o cualquier otra condición que consideren_
