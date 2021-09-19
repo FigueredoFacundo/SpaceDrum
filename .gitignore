@@ -20,8 +20,4 @@
 *.rar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-<<<<<<< HEAD
 hs_err_pid*
-=======
-hs_err_pid*
->>>>>>> branch 'main' of git@github.com:SpartaNerds-Progra-Avanzanda-2c-2021/Juego-TCP.git
