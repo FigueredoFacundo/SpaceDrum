@@ -1,6 +1,26 @@
 # Juego-TCP
 
-#Metodología de trabajo
+# Introducción
+Durante el taller desarrollaremos un juego a elección de cada uno de los equipos que implemente la forma de juego de desplazamiento constante, pero con elementos de multijugador.
+
+El juego puede orientarse al movimiento continuo vertical:
+- [Road fighter](https://en.wikipedia.org/wiki/Road_Fighter)
+- [1943](https://en.wikipedia.org/wiki/1943:_The_Battle_of_Midway)
+
+También puede orientarse al movimiento continuo horizontal:
+- [Jetpack Joyride](https://www.halfbrick.com/games/jetpack-joyride)
+- [Flappy Bird](https://en.wikipedia.org/wiki/Flappy_Bird)
+- [Geometry Dash](http://www.robtopgames.com/)
+- [Dinosaur Game](https://en.wikipedia.org/wiki/Dinosaur_Game)
+
+Y si es el jugador el que mantiene ese movimiento continuo también cuenta:
+- [Super Mario Run](https://supermariorun.com/)
+
+
+En las clases del taller se les proveerá de herramientas para poder realizarlo en Java, con las buenas prácticas que irán adquiriendo.
+
+
+# Metodología de trabajo
 
 La realización del juego, tendrá tres etapas con sus respectivas entregas:
 
