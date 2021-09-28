@@ -12,26 +12,27 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 	// Caracterisica magia que nos va a servir mas adelante
 	private double velocidad;
 
-	public Proyectil(double ataque, Circulo cuerpo, boolean esDebil, EntidadAbstracta propietario, Angulo angulo,
+	public Proyectil(double ataque, Circulo cuerpo, boolean esDebil, Angulo angulo,
 			double velocidad) {
 		super(cuerpo);
 		this.ataque = ataque;
 		this.esDebil = esDebil;
-		this.propietario = propietario;
 		this.angulo = angulo;
 		this.velocidad = velocidad;
 	}
 
-	public Proyectil clone() {
-		try {
-			return (Proyectil) super.clone();
-		} catch (CloneNotSupportedException ex) {
-			Circulo clonCuerpo = this.cuerpo.clone();
-			Angulo clonAncgulo = this.angulo.clone();
-			return new Proyectil(this.ataque, clonCuerpo, this.esDebil, this.propietario, clonAncgulo, this.velocidad);
-		}
+	public Proyectil clone(EntidadAbstracta propietario) {
+		Circulo clonCuerpo = this.cuerpo.clone();
+		Angulo clonAncgulo = this.angulo.clone();
+		Proyectil clonProyectil = new Proyectil(this.ataque, clonCuerpo, this.esDebil, clonAncgulo, this.velocidad);
+		clonProyectil.setPropietario(propietario);
+		return clonProyectil;
 	}
 
+	public void setPropietario(EntidadAbstracta propietario) {
+		this.propietario = propietario;
+	}
+	
 	@Override
 	public void chocar(EntidadAbstracta Entidad) {
 		if (Entidad.intersectaCon(super.cuerpo) && (Entidad.debilAnte(this.propietario) || Entidad.debilAnte(this))) {

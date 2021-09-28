@@ -41,7 +41,7 @@ public class Darius extends EntidadAbstracta{
 	}
 
 	public Proyectil disparar() {
-		return this.proyectil.clone();
+		return this.proyectil.clone(this);
 	}
 	
 	public void setInvulnerable(boolean invulnerable) {

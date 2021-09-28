@@ -1,5 +1,7 @@
 package Juego.Entidades;
 
+import java.util.ArrayList;
+
 import Juego.Utils.Angulo;
 import Juego.Utils.Circulo;
 import Juego.Utils.Punto;
@@ -41,7 +43,11 @@ public class Enemigo extends EntidadAbstracta {
 	}
 
 	public Proyectil[] disparar() {
-		return this.proyectiles.clone();
+		ArrayList<Proyectil> clonesProyectiles = new ArrayList<Proyectil >();
+		for (Proyectil proyectil : this.proyectiles) {
+			clonesProyectiles.add(proyectil.clone(this));
+		}
+		return (Proyectil[]) clonesProyectiles.toArray();
 	}
 	
 	public void avanzar() {
