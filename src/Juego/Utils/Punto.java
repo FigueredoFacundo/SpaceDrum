@@ -1,6 +1,8 @@
 package Juego.Utils;
 
-public class Punto {
+import Juego.Entidades.Proyectil;
+
+public class Punto implements Cloneable{
 	private double x, y;
 
 	public Punto(double x, double y) {
@@ -8,6 +10,14 @@ public class Punto {
 		this.y = y;
 	}
 
+	public Punto clone() {
+		try {
+			return (Punto) super.clone();
+		} catch (CloneNotSupportedException ex) {
+			return new Punto(this.x,this.y);
+		}
+	}
+	
 	public double obtenerDistancia(Punto p2) {
 		return Math.sqrt(Math.pow(this.getX() - p2.getX(), 2) + Math.pow(this.getY() - p2.getY(), 2));
 	}

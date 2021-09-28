@@ -1,6 +1,6 @@
 package Juego.Utils;
 
-public class Angulo {
+public class Angulo implements Cloneable{
 
 	private double valor;
 
@@ -9,6 +9,14 @@ public class Angulo {
 		this.valor = valor;
 	}
 
+	public Angulo clone() {
+		try {
+			return (Angulo) super.clone();
+		} catch (CloneNotSupportedException ex) {
+			return new Angulo(this.valor);
+		}
+	}
+	
 	public double getValor() {
 		return valor;
 	}

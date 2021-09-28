@@ -8,10 +8,12 @@ public class Enemigo extends EntidadAbstracta {
 	private double vida;
 	private double ataque = 0;
 	private Angulo angulo;
+	private Proyectil[] proyectiles;
 
-	public Enemigo(Circulo cuerpo, double vida, double ataque, Angulo angulo) {
+	public Enemigo(Circulo cuerpo, double vida, double ataque, Angulo angulo, Proyectil[] proyectiles) {
 		super(cuerpo);
 		this.vida = vida;
+		this.proyectiles = proyectiles;
 		this.ataque = ataque;
 		this.angulo = angulo;
 	}
@@ -38,6 +40,10 @@ public class Enemigo extends EntidadAbstracta {
 		}
 	}
 
+	public Proyectil[] disparar() {
+		return this.proyectiles.clone();
+	}
+	
 	public void avanzar() {
 		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor()), Math.sin(angulo.getValor())));
 	}

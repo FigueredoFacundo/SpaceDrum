@@ -1,12 +1,21 @@
 package Juego.Utils;
 
-public class Circulo {
+public class Circulo implements Cloneable{
 	private Punto centro;
 	private double radio;
 	
 	public Circulo(Punto centro, double radio) {
 		this.centro = centro;
 		this.radio = radio;
+	}
+	
+	public Circulo clone() {
+		try {
+			return (Circulo) super.clone();
+		} catch (CloneNotSupportedException ex) {
+			Punto clonCentro = this.centro.clone();
+			return new Circulo(clonCentro, this.radio);
+		}
 	}
 	
 	public boolean intersectaCon(Circulo c2) { 

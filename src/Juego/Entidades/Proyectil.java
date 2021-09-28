@@ -4,7 +4,7 @@ import Juego.Utils.Angulo;
 import Juego.Utils.Circulo;
 import Juego.Utils.Punto;
 
-public class Proyectil extends EntidadAbstracta {
+public class Proyectil extends EntidadAbstracta implements Cloneable {
 	private double ataque;
 	private boolean esDebil;
 	private EntidadAbstracta propietario;
@@ -20,6 +20,16 @@ public class Proyectil extends EntidadAbstracta {
 		this.propietario = propietario;
 		this.angulo = angulo;
 		this.velocidad = velocidad;
+	}
+
+	public Proyectil clone() {
+		try {
+			return (Proyectil) super.clone();
+		} catch (CloneNotSupportedException ex) {
+			Circulo clonCuerpo = this.cuerpo.clone();
+			Angulo clonAncgulo = this.angulo.clone();
+			return new Proyectil(this.ataque, clonCuerpo, this.esDebil, this.propietario, clonAncgulo, this.velocidad);
+		}
 	}
 
 	@Override
@@ -44,7 +54,7 @@ public class Proyectil extends EntidadAbstracta {
 
 		return this.esDebil && this.propietario instanceof Enemigo && proyectil.propietario instanceof Darius;
 	}
-	
+
 	public void avanzar() {
 		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor()), Math.sin(angulo.getValor())));
 	}
