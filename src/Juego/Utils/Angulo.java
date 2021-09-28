@@ -1,0 +1,25 @@
+package Juego.Utils;
+
+public class Angulo {
+
+	private double valor;
+
+	public Angulo(double valor) {
+		super();
+		this.valor = valor;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void up(double valor) {
+		this.valor += valor;
+		this.valor %= 360;
+	}
+
+	public void down(double valor) {
+		this.valor -= valor;
+		this.valor %= 360;
+	}
+}
