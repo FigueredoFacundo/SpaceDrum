@@ -1,18 +1,16 @@
 package Juego.Entidades;
 
-import java.util.ArrayList;
-
 import Juego.Utils.Angulo;
 import Juego.Utils.Circulo;
 import Juego.Utils.Punto;
 
-public class Enemigo extends EntidadAbstracta {
+public class Enemigo extends EntidadAbstracta implements Cloneable {
 	private double vida;
 	private double ataque = 0;
 	private Angulo angulo;
-	private Proyectil[] proyectiles;
+	private Proyectil proyectiles;
 
-	public Enemigo(Circulo cuerpo, double vida, double ataque, Angulo angulo, Proyectil[] proyectiles) {
+	public Enemigo(Circulo cuerpo, double vida, double ataque, Angulo angulo, Proyectil proyectiles) {
 		super(cuerpo);
 		this.vida = vida;
 		this.proyectiles = proyectiles;
@@ -20,16 +18,10 @@ public class Enemigo extends EntidadAbstracta {
 		this.angulo = angulo;
 	}
 
-	@Override
 	public void chocar(EntidadAbstracta entidad) {
-		if (entidad.intersectaCon(this.cuerpo) && entidad.debilAnte(this)) {
+		if (entidad.intersectaCon(super.cuerpo)) {
 			entidad.recibirDaño(this.ataque);
 		}
-	}
-
-	@Override
-	public boolean debilAnte(EntidadAbstracta entidad) {
-		return entidad instanceof Darius;
 	}
 
 	@Override
@@ -42,15 +34,23 @@ public class Enemigo extends EntidadAbstracta {
 		}
 	}
 
-	public Proyectil[] disparar() {
-		ArrayList<Proyectil> clonesProyectiles = new ArrayList<Proyectil >();
-		for (Proyectil proyectil : this.proyectiles) {
-			clonesProyectiles.add(proyectil.clone(this));
-		}
-		return (Proyectil[]) clonesProyectiles.toArray();
+	public boolean estoyMuerto() {
+		return this.vida == 0;
 	}
-	
+
+	public Proyectil disparar() {
+		return this.proyectiles.clone();
+	}
+
 	public void avanzar() {
 		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor()), Math.sin(angulo.getValor())));
 	}
+
+	public Enemigo clone() {
+		Circulo cloncirculo = this.cuerpo.clone();
+		Angulo clonangulo = this.angulo.clone();
+		Proyectil clonproyectil = this.proyectiles.clone();
+		return new Enemigo(cloncirculo, this.vida, this.ataque, clonangulo, clonproyectil);
+	}
+
 }

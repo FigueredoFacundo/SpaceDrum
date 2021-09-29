@@ -35,4 +35,13 @@ public class Circulo implements Cloneable{
 	public void mover( Punto desplazamiento ) {
 		this.centro.mover( desplazamiento );
 	}
+	public double getRadio() {
+		return this.radio;
+	}
+	public double getX() {
+		return centro.getX();
+	}
+	public double getY() {
+		return centro.getY();
+	}
 }

@@ -14,6 +14,8 @@ public abstract class EntidadAbstracta{
 		return this.cuerpo.intersectaCon(otroCuerpo);
 	}
 	public abstract void recibirDaño(double daño);
-	public abstract boolean debilAnte(EntidadAbstracta entidad);
-	public abstract void chocar(EntidadAbstracta entidad);
+	
+	public Circulo getCirculo() {
+		return this.cuerpo;
+	}
 }

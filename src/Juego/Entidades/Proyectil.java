@@ -6,39 +6,37 @@ import Juego.Utils.Punto;
 
 public class Proyectil extends EntidadAbstracta implements Cloneable {
 	private double ataque;
-	private boolean esDebil;
-	private EntidadAbstracta propietario;
+
+	private int clavePropietario;
 	private Angulo angulo;
 	// Caracterisica magia que nos va a servir mas adelante
 	private double velocidad;
 
-	public Proyectil(double ataque, Circulo cuerpo, boolean esDebil, Angulo angulo,
-			double velocidad) {
+	public Proyectil(double ataque, Circulo cuerpo, int clavePropietario, Angulo angulo, double velocidad) {
 		super(cuerpo);
 		this.ataque = ataque;
-		this.esDebil = esDebil;
+
+		this.clavePropietario = clavePropietario;
 		this.angulo = angulo;
 		this.velocidad = velocidad;
 	}
 
-	public Proyectil clone(EntidadAbstracta propietario) {
-		Circulo clonCuerpo = this.cuerpo.clone();
-		Angulo clonAncgulo = this.angulo.clone();
-		Proyectil clonProyectil = new Proyectil(this.ataque, clonCuerpo, this.esDebil, clonAncgulo, this.velocidad);
-		clonProyectil.setPropietario(propietario);
-		return clonProyectil;
+	public Proyectil(Circulo cuerpo, int clave) {
+		super(cuerpo);
+		this.ataque = 10;
+		this.clavePropietario = clave;
+		this.angulo = new Angulo(0);
+		this.velocidad = 1;
 	}
 
-	public void setPropietario(EntidadAbstracta propietario) {
-		this.propietario = propietario;
-	}
-	
-	@Override
-	public void chocar(EntidadAbstracta Entidad) {
-		if (Entidad.intersectaCon(super.cuerpo) && (Entidad.debilAnte(this.propietario) || Entidad.debilAnte(this))) {
-			Entidad.recibirDaño(ataque);
+	public Proyectil clone() {
+		try {
+			return (Proyectil) super.clone();
+		} catch (CloneNotSupportedException ex) {
+			Circulo clonCuerpo = this.cuerpo.clone();
+			Angulo clonAncgulo = this.angulo.clone();
+			return new Proyectil(this.ataque, clonCuerpo, this.clavePropietario, clonAncgulo, this.velocidad);
 		}
-		this.ataque = 0;
 	}
 
 	@Override
@@ -46,17 +44,11 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 		this.ataque = 0;
 	}
 
-	@Override
-	public boolean debilAnte(EntidadAbstracta entidad) {
-		if (!(entidad instanceof Proyectil)) {
-			return false;
-		}
-		Proyectil proyectil = (Proyectil) entidad;
-
-		return this.esDebil && this.propietario instanceof Enemigo && proyectil.propietario instanceof Darius;
-	}
-
 	public void avanzar() {
 		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor()), Math.sin(angulo.getValor())));
+	}
+
+	public int getClave() {
+		return this.clavePropietario;
 	}
 }

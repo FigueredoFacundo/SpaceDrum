@@ -3,31 +3,25 @@ package Juego.Entidades;
 import Juego.Utils.Circulo;
 import Juego.Utils.Punto;
 
-public class Darius extends EntidadAbstracta{
+public class Darius extends EntidadAbstracta {
 	private double vida;
 	private double ataque = 0;
-	private String color;
+	private int clave;
 	private Proyectil proyectil;
 
 	private boolean invulnerable;
 
-	public Darius(double vida, Circulo cuerpo, String color, Proyectil proyectil) {
+	public Darius(double vida, Circulo cuerpo, int clave, Proyectil proyectil) {
 		super(cuerpo);
 		this.proyectil = proyectil;
 		this.vida = vida;
-		this.color = color;
+		this.clave = clave;
 	}
 
-	@Override
 	public void chocar(EntidadAbstracta entidad) {
-		if (entidad.intersectaCon(super.cuerpo) && entidad.debilAnte(this)) {
-			entidad.recibirDaño(this.ataque);
+		if (entidad.intersectaCon(super.cuerpo)) {
+			this.recibirDaño(this.ataque);
 		}
-	}
-
-	@Override
-	public boolean debilAnte(EntidadAbstracta entidad) {
-		return entidad instanceof Enemigo;
 	}
 
 	@Override
@@ -41,9 +35,9 @@ public class Darius extends EntidadAbstracta{
 	}
 
 	public Proyectil disparar() {
-		return this.proyectil.clone(this);
+		return this.proyectil.clone();
 	}
-	
+
 	public void setInvulnerable(boolean invulnerable) {
 		this.invulnerable = invulnerable;
 	}
@@ -64,7 +58,7 @@ public class Darius extends EntidadAbstracta{
 		super.cuerpo.mover(new Punto(0, 1));
 	}
 
-	public String getColor() {
-		return color;
+	public int getClave() {
+		return this.clave;
 	}
 }
