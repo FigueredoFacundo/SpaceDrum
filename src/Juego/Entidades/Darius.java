@@ -1,33 +1,77 @@
-package Juego.Entidades;
+package Entidades;
 
-import Juego.Utils.Circulo;
-import Juego.Utils.Punto;
+import Utils.Circulo;
+import Utils.Punto;
 
 public class Darius extends EntidadAbstracta {
+	
+	
+	private double vidaMax;
 	private double vida;
-	private double ataque = 0;
-	private int clave;
 	private Proyectil proyectil;
-
 	private boolean invulnerable;
+	
+	
+	public double getVida() {
+		return vida;
+	}
 
+	public void setVida(double vida) {
+		this.vida = vida;
+	}
+
+	public double getAtaque() {
+		return ataque;
+	}
+
+	public void setAtaque(double ataque) {
+		this.ataque = ataque;
+	}
+
+	public Proyectil getProyectil() {
+		return proyectil;
+	}
+
+	public void setProyectil(Proyectil proyectil) {
+		this.proyectil = proyectil;
+	}
+
+	public boolean isInvulnerable() {
+		return invulnerable;
+	}
+
+	public void setVidaMax(double vidaMax) {
+		this.vidaMax = vidaMax;
+	}
+
+	public double getVidaMax()
+	{
+		return this.vidaMax;
+	}
+	
 	public Darius(double vida, Circulo cuerpo, int clave, Proyectil proyectil) {
 		super(cuerpo);
 		this.proyectil = proyectil;
-		this.vida = vida;
+		this.proyectil.setClave(clave);
+		this.vidaMax = vida;
+		this.vida = this.vidaMax;
 		this.clave = clave;
 	}
+	
+	
 
-	public void chocar(EntidadAbstracta entidad) {
-		if (entidad.intersectaCon(super.cuerpo)) {
-			this.recibirDaño(this.ataque);
+	public boolean chocar(EntidadAbstracta entidad) {
+		if (this.intersectaCon(entidad.cuerpo) && entidad.getClave() == 0) {
+			this.recibirDanio(entidad.getAtaque());
+			return true;
 		}
+		return false;
 	}
 
 	@Override
-	public void recibirDaño(double daño) {
+	public void recibirDanio(double danio) {
 		if (!this.invulnerable && this.vida >= 0) {
-			this.vida -= daño;
+			this.vida -= danio;
 		}
 		if (vida <= 0) {
 			this.vida = 0;

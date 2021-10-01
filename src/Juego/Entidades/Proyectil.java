@@ -1,22 +1,48 @@
-package Juego.Entidades;
+package Entidades;
 
-import Juego.Utils.Angulo;
-import Juego.Utils.Circulo;
-import Juego.Utils.Punto;
+import Utils.Angulo;
+import Utils.Circulo;
+import Utils.Punto;
 
 public class Proyectil extends EntidadAbstracta implements Cloneable {
-	private double ataque;
-
-	private int clavePropietario;
+	
 	private Angulo angulo;
 	// Caracterisica magia que nos va a servir mas adelante
 	private double velocidad;
+	
+	
+	public double getAtaque() {
+		return ataque;
+	}
 
-	public Proyectil(double ataque, Circulo cuerpo, int clavePropietario, Angulo angulo, double velocidad) {
+	public void setAtaque(double ataque) {
+		this.ataque = ataque;
+	}
+
+	
+	public Angulo getAngulo() {
+		return angulo;
+	}
+
+	public void setAngulo(Angulo angulo) {
+		this.angulo = angulo;
+	}
+
+	public double getVelocidad() {
+		return velocidad;
+	}
+
+	public void setVelocidad(double velocidad) {
+		this.velocidad = velocidad;
+	}
+
+	
+
+	public Proyectil(double ataque, Circulo cuerpo, int clave, Angulo angulo, double velocidad) {
 		super(cuerpo);
 		this.ataque = ataque;
 
-		this.clavePropietario = clavePropietario;
+		this.clave = clave;
 		this.angulo = angulo;
 		this.velocidad = velocidad;
 	}
@@ -24,7 +50,7 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 	public Proyectil(Circulo cuerpo, int clave) {
 		super(cuerpo);
 		this.ataque = 10;
-		this.clavePropietario = clave;
+		this.clave = clave;
 		this.angulo = new Angulo(0);
 		this.velocidad = 1;
 	}
@@ -35,20 +61,24 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 		} catch (CloneNotSupportedException ex) {
 			Circulo clonCuerpo = this.cuerpo.clone();
 			Angulo clonAncgulo = this.angulo.clone();
-			return new Proyectil(this.ataque, clonCuerpo, this.clavePropietario, clonAncgulo, this.velocidad);
+			return new Proyectil(this.ataque, clonCuerpo, this.clave, clonAncgulo, this.velocidad);
+		}
+	}
+	
+	public void chocar(EntidadAbstracta entidad) {
+		if (this.intersectaCon(entidad.cuerpo) && entidad.getClave()!=this.clave && this.getClass() != entidad.getClass()) {
+			this.recibirDanio(entidad.ataque);
 		}
 	}
 
 	@Override
-	public void recibirDaño(double daño) {
+	public void recibirDanio(double danio) {
 		this.ataque = 0;
 	}
 
 	public void avanzar() {
-		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor()), Math.sin(angulo.getValor())));
+		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(angulo.getValor()),this.velocidad*Math.sin(angulo.getValor())));
 	}
 
-	public int getClave() {
-		return this.clavePropietario;
-	}
+	
 }
