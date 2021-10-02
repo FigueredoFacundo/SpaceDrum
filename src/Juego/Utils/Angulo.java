@@ -1,4 +1,4 @@
-package Juego.Utils;
+package Utils;
 
 public class Angulo implements Cloneable{
 

@@ -1,6 +1,5 @@
-package Juego.Utils;
+package Utils;
 
-import Juego.Entidades.Proyectil;
 
 public class Punto implements Cloneable{
 	private double x, y;

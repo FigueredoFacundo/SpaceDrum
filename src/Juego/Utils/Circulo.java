@@ -1,4 +1,4 @@
-package Juego.Utils;
+package Utils;
 
 public class Circulo implements Cloneable{
 	private Punto centro;
@@ -24,10 +24,10 @@ public class Circulo implements Cloneable{
 	    if (d > this.radio + c2.radio) {	
 	        return false;
 	    }
-	  //uno dentro de otro pero sin tocarse, no intersecta
-	    if (d < Math.abs(this.radio-c2.radio)) {	
+	  //uno dentro de otro pero sin tocarse, para el juego si intersectan.
+	  /*  if (d < Math.abs(this.radio-c2.radio)) {	
 	        return false;
-	    }
+	    }*/
 	  //intersectan en uno o más puntos
 	    return true; 
 	}
