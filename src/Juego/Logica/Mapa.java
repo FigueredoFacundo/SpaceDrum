@@ -1,9 +1,9 @@
-package logica;
+package Logica;
 
 import java.util.ArrayList;
 
-import Juego.Entidades.*;
-import Juego.Utils.*;
+import Entidades.*;
+import Utils.*;
 
 public class Mapa {
 	ArrayList<Enemigo> enemigosEnPantalla = new ArrayList<Enemigo>();
@@ -44,7 +44,7 @@ public class Mapa {
 		return bajasAliadas;
 	}
 
-	public void añadirEnemigos(int cant, Enemigo enemigo) {
+	public void aniadirEnemigos(int cant, Enemigo enemigo) {
 		for (int i = 0; i < cant; i++) {
 			enemigosEnPantalla.add(enemigo.clone());
 		}
