@@ -3,6 +3,7 @@ package Juego.Entidades;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import Juego.Graficos.RecursosExternos;
 import Juego.Utils.*;
 
 public class Enemigo extends EntidadAbstracta implements Cloneable {
@@ -96,7 +97,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	}
 
 	public Proyectil disparar() {
-		return this.proyectiles.clone();
+		return new Proyectil(new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),1,textura);
 	}
 
 	public void avanzar() {

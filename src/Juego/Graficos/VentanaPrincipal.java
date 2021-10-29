@@ -78,7 +78,7 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 		g.fillRect(0, 0, ANCHO, ALTO);
 		
 		mapa.dibujar(g);
-		System.out.println(AVERAGEFPS);
+		
 		
 
 		// -------------------------------------------------------------

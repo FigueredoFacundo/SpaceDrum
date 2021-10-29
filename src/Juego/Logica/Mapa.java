@@ -21,12 +21,13 @@ public class Mapa {
 	ArrayList<Enemigo> bufferEnemigos = new ArrayList<Enemigo>();
 	Cronometro firerate;
 	Cronometro cd;
+	Cronometro enemigoFireRate;
 
 	public Mapa() {
 		dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 50), 28), 1,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 1, RecursosExternos.laser), RecursosExternos.player));
 
-		dariusEnPantalla.add( new Darius(100, new Circulo(new Punto(20, 200), 5), 2,
+		dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 200), 28), 2,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 2, RecursosExternos.laser), RecursosExternos.player));
 		// dariusEnPantalla[2] = new Darius(100, new Circulo(new Punto(20, 350), 5), 3,
 		// new Proyectil(new Circulo(new Punto(20, 20), 1),
@@ -36,6 +37,7 @@ public class Mapa {
 		// 4,RecursosExternos.laser),RecursosExternos.player);
 		firerate = new Cronometro();
 		cd = new Cronometro();
+		enemigoFireRate = new Cronometro();
 	}
 
 	public void calcularColisiones() {
@@ -97,7 +99,7 @@ public class Mapa {
 
 			if (estaElObjetoEnPantalla(proyectil)) {
 				eliminacion.add(proyectil);
-				System.out.println("se fue nomas");
+				
 			}
 		}
 		proyectilesEnemigos.removeAll(eliminacion);
@@ -139,7 +141,10 @@ public class Mapa {
 	public void ataqueEnemigo() {
 		for (Enemigo enemigo : enemigosEnPantalla) {
 			proyectilesEnemigos.add(enemigo.disparar());
+
 		}
+		System.out.println("dispararon");
+
 	}
 
 	public void dibujar(Graphics g) {
@@ -148,6 +153,10 @@ public class Mapa {
 
 		}
 		for (Proyectil P : proyectilesAliados) {
+			P.dibujar(g);
+
+		}
+		for (Proyectil P : proyectilesEnemigos) {
 			P.dibujar(g);
 
 		}
@@ -169,7 +178,12 @@ public class Mapa {
 			e.actualizar();
 
 		}
-		
+		if (!enemigoFireRate.isRunning()) {
+
+			ataqueEnemigo();
+			enemigoFireRate.run(1000);
+		}
+
 		if (KeyBoard.LEFT && dariusEnPantalla.get(0).getX() > 0) {
 			dariusEnPantalla.get(0).izquierda();
 		}
@@ -191,10 +205,15 @@ public class Mapa {
 			proyectil.actualizar();
 
 		}
+		for (Proyectil proyectil : proyectilesEnemigos) {
+			proyectil.actualizar();
+
+		}
 		cleanObjOutOfScreen(800, 1000);
 		calcularColisiones();
 		firerate.update();
 		cd.update();
+		enemigoFireRate.update();
 	}
 
 }

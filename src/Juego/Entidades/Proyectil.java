@@ -96,10 +96,13 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 		// TODO Auto-generated method stub
 		
 	}
+	public BufferedImage getTextura() {
+		return textura;
+	}
 
 	@Override
 	public void dibujar(Graphics g) {
-		g.drawImage(RecursosExternos.laser,getX(),getY(), null);
+		g.drawImage(getTextura(),getX(),getY(), null);
 		
 	}
 
