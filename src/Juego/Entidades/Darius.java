@@ -62,12 +62,13 @@ public class Darius extends EntidadAbstracta {
 		this.vidaMax = vida;
 		this.vida = this.vidaMax;
 		this.clave = clave;
+		
 	}
 	
 	
 
 	public boolean chocar(EntidadAbstracta entidad) {
-		if (this.intersectaCon(entidad.cuerpo) && entidad.getClave() == 0) {
+		if (this.intersectaCon(entidad.cuerpo) && (entidad.getClave()*this.getClave())<0) {
 			this.recibirDanio(entidad.getAtaque());
 			return true;
 		}
@@ -129,6 +130,6 @@ public class Darius extends EntidadAbstracta {
 	@Override
 	public void dibujar(Graphics g) {
 		 g.drawRect(0, 0, 100, 100);
-		 g.drawImage(RecursosExternos.player,getX(),getY(), null);
+		 g.drawImage(textura,getX(),getY(), null);
 	}
 }

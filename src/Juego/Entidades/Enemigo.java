@@ -67,7 +67,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 		this.vidaMax = vida;
 		this.vida = vidaMax;
 
-		this.clave = 0;
+		this.clave = -1;
 		this.proyectiles = proyectiles;
 		this.proyectiles.setClave(this.clave);
 		this.ataque = ataque;
@@ -97,7 +97,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	}
 
 	public Proyectil disparar() {
-		return new Proyectil(new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),1,textura);
+		return new Proyectil(10,new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),-1,new Angulo(180),2.0,RecursosExternos.laserRed);
 	}
 
 	public void avanzar() {

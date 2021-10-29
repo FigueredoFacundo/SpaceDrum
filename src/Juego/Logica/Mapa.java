@@ -49,6 +49,7 @@ public class Mapa {
 			for (Proyectil proyectil : proyectilesEnemigos) {
 				if (aliado.chocar(proyectil)) {
 					eliminar.add(proyectil);
+					System.out.println("me dieron" + aliado.getVida());
 				}
 
 			}
@@ -81,7 +82,7 @@ public class Mapa {
 
 		}
 		if (enemigosEnPantalla.removeAll(eliminarEntidad)) {
-			System.out.println("lel");
+			
 			System.out.println(enemigosEnPantalla.size());
 		}
 
@@ -143,7 +144,7 @@ public class Mapa {
 			proyectilesEnemigos.add(enemigo.disparar());
 
 		}
-		System.out.println("dispararon");
+		
 
 	}
 
@@ -170,7 +171,7 @@ public class Mapa {
 		if (!cd.isRunning() && !bufferEnemigos.isEmpty()) {
 			enemigosEnPantalla.add(bufferEnemigos.get(0));
 			bufferEnemigos.remove(0);
-			System.out.print("lol");
+			
 			cd.run(2000);
 		}
 
