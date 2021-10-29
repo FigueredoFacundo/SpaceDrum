@@ -1,10 +1,10 @@
-package Tests;
+package Juego.Tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import Utils.Punto;
+import Juego.Utils.Punto;
 
 public class PuntoTest {
 

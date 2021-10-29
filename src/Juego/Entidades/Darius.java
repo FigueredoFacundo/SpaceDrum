@@ -1,7 +1,12 @@
-package Entidades;
+package Juego.Entidades;
 
-import Utils.Circulo;
-import Utils.Punto;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import Juego.Graficos.RecursosExternos;
+import Juego.Utils.Circulo;
+import Juego.Utils.Punto;
+import Juego.input.KeyBoard;
 
 public class Darius extends EntidadAbstracta {
 	
@@ -10,6 +15,7 @@ public class Darius extends EntidadAbstracta {
 	private double vida;
 	private Proyectil proyectil;
 	private boolean invulnerable;
+	
 	
 	
 	public double getVida() {
@@ -49,8 +55,8 @@ public class Darius extends EntidadAbstracta {
 		return this.vidaMax;
 	}
 	
-	public Darius(double vida, Circulo cuerpo, int clave, Proyectil proyectil) {
-		super(cuerpo);
+	public Darius(double vida, Circulo cuerpo, int clave, Proyectil proyectil, BufferedImage textura) {
+		super(cuerpo, textura);
 		this.proyectil = proyectil;
 		this.proyectil.setClave(clave);
 		this.vidaMax = vida;
@@ -79,7 +85,7 @@ public class Darius extends EntidadAbstracta {
 	}
 
 	public Proyectil disparar() {
-		return this.proyectil.clone();
+		return new Proyectil(new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),1,RecursosExternos.laser);
 	}
 
 	public void setInvulnerable(boolean invulnerable) {
@@ -87,22 +93,42 @@ public class Darius extends EntidadAbstracta {
 	}
 
 	public void subir() {
-		super.cuerpo.mover(new Punto(1, 0));
+		super.cuerpo.mover(new Punto(0, -0.2));
 	}
 
 	public void bajar() {
-		super.cuerpo.mover(new Punto(-1, 0));
+		super.cuerpo.mover(new Punto(0, 0.2));
 	}
 
-	public void izqueirda() {
-		super.cuerpo.mover(new Punto(0, -1));
+	public void izquierda() {
+		super.cuerpo.mover(new Punto(-0.2, 0));
 	}
 
 	public void derecha() {
-		super.cuerpo.mover(new Punto(0, 1));
+		super.cuerpo.mover(new Punto(0.2, 0));
 	}
 
 	public int getClave() {
 		return this.clave;
+	}
+	public int getX() {
+		return (int) (this.cuerpo.getX() - this.cuerpo.getRadio());
+	}
+	public int getY() {
+		return (int) (this.cuerpo.getY() - this.cuerpo.getRadio());
+	}
+
+	@Override
+	public void actualizar() {
+	
+		
+		
+		
+	}
+
+	@Override
+	public void dibujar(Graphics g) {
+		 g.drawRect(0, 0, 100, 100);
+		 g.drawImage(RecursosExternos.player,getX(),getY(), null);
 	}
 }

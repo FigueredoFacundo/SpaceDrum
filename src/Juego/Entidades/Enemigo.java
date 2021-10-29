@@ -1,11 +1,11 @@
-package Entidades;
+package Juego.Entidades;
 
-import Utils.Angulo;
-import Utils.Circulo;
-import Utils.Punto;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import Juego.Utils.*;
 
 public class Enemigo extends EntidadAbstracta implements Cloneable {
-	
 
 	public double getVidaMax() {
 		return vidaMax;
@@ -27,15 +27,15 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	private double vidaMax;
 	private Angulo angulo;
 	private Proyectil proyectiles;
-	
+
 	public int getClave() {
 		return clave;
 	}
 
-	public Proyectil getProyectil()
-	{
+	public Proyectil getProyectil() {
 		return this.proyectiles;
 	}
+
 	public double getVida() {
 		return vida;
 	}
@@ -60,15 +60,12 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 		this.angulo = angulo;
 	}
 
-	
-
-	
-
-	public Enemigo(Circulo cuerpo, double vida, double ataque, Angulo angulo, Proyectil proyectiles) {
-		super(cuerpo);
-		this.vidaMax= vida;
+	public Enemigo(Circulo cuerpo, double vida, double ataque, Angulo angulo, Proyectil proyectiles,
+			BufferedImage textura) {
+		super(cuerpo, textura);
+		this.vidaMax = vida;
 		this.vida = vidaMax;
-		
+
 		this.clave = 0;
 		this.proyectiles = proyectiles;
 		this.proyectiles.setClave(this.clave);
@@ -76,10 +73,12 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 		this.angulo = angulo;
 	}
 
-	public void chocar(EntidadAbstracta entidad) {
-		if (this.intersectaCon(entidad.cuerpo) && entidad.getClave()!=this.clave) {
+	public boolean chocar(EntidadAbstracta entidad) {
+		if (this.intersectaCon(entidad.cuerpo) && entidad.getClave() != this.clave) {
 			this.recibirDanio(entidad.ataque);
+			return true;
 		}
+		return false;
 	}
 
 	@Override
@@ -101,14 +100,35 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	}
 
 	public void avanzar() {
-		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor()), Math.sin(angulo.getValor())));
+		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor())/10000, Math.sin(angulo.getValor())/10000));
+		
 	}
 
 	public Enemigo clone() {
 		Circulo cloncirculo = this.cuerpo.clone();
 		Angulo clonangulo = this.angulo.clone();
 		Proyectil clonproyectil = this.proyectiles.clone();
-		return new Enemigo(cloncirculo, this.vida, this.ataque, clonangulo, clonproyectil);
+		return new Enemigo(cloncirculo, this.vida, this.ataque, clonangulo, clonproyectil,textura);
+	}
+
+	public int getX() {
+		return (int) (this.cuerpo.getX() - this.cuerpo.getRadio());
+	}
+
+	public int getY() {
+		return (int) (this.cuerpo.getY() - this.cuerpo.getRadio());
+	}
+
+	@Override
+	public void actualizar() {
+		avanzar();
+
+	}
+
+	@Override
+	public void dibujar(Graphics g) {
+		g.drawImage(textura, getX(), getY(), null);
+
 	}
 
 }

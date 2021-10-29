@@ -1,15 +1,17 @@
-package Tests;
+package Juego.Tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
-import Entidades.Darius;
-import Entidades.Enemigo;
-import Entidades.Proyectil;
-import Utils.Angulo;
-import Utils.Circulo;
-import Utils.Punto;
+import Juego.Entidades.Darius;
+import Juego.Entidades.Enemigo;
+import Juego.Entidades.Proyectil;
+import Juego.Graficos.RecursosExternos;
+import Juego.Utils.Angulo;
+import Juego.Utils.Circulo;
+import Juego.Utils.Punto;
 
 public class EnemigoTest {
 
@@ -17,9 +19,9 @@ public class EnemigoTest {
 	public void ChocarDariusQuitaVida() {
 		
 		Darius d1 = new Darius(100, new Circulo(new Punto(20, 20), 5), 1,
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		Enemigo e1 = new Enemigo(new Circulo(new Punto(21, 21), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		
 		e1.chocar(d1);
 		assertEquals(e1.getVidaMax()-d1.getAtaque(), e1.getVida(), 0);
@@ -30,9 +32,9 @@ public class EnemigoTest {
 	public void ChocarProyectilDariusQuitaVida() {
 		
 		Darius d1 = new Darius(100, new Circulo(new Punto(20, 20), 5), 1,
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(26, 26), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		Enemigo e1 = new Enemigo(new Circulo(new Punto(26, 26), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		
 		e1.chocar(d1.getProyectil());
 		assertEquals(e1.getVidaMax()-d1.getProyectil().getAtaque(), e1.getVida(), 0);
@@ -43,9 +45,9 @@ public class EnemigoTest {
 	public void ChocarEnemigoNoDania() {
 		
 		Enemigo e1 = new Enemigo(new Circulo(new Punto(26, 26), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		Enemigo e2 = new Enemigo(new Circulo(new Punto(26, 26), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		
 		
 		e1.chocar(e2);
@@ -58,9 +60,9 @@ public class EnemigoTest {
 	public void ChocarProyectilEnemigoNoDania() {
 		
 		Enemigo e1 = new Enemigo(new Circulo(new Punto(26, 26), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		Enemigo e2 = new Enemigo(new Circulo(new Punto(26, 26), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		
 		e1.chocar(e2.getProyectil());
 		assertEquals(e1.getVidaMax(), e1.getVida(), 0);
@@ -72,7 +74,7 @@ public class EnemigoTest {
 	public void EnemigoDispara() {
 		
 		Enemigo e1 = new Enemigo(new Circulo(new Punto(26, 26), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1));
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		
 		assertNotEquals(e1.getProyectil(), e1.disparar());
 		

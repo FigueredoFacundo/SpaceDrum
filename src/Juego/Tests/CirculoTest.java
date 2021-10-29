@@ -1,11 +1,12 @@
-package Tests;
+package Juego.Tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import Utils.Circulo;
-import Utils.Punto;
+import Juego.Utils.Circulo;
+import Juego.Utils.Punto;
 
 public class CirculoTest {
 	Circulo circulo;
@@ -36,9 +37,9 @@ public class CirculoTest {
 
 	@Test
 	public void C1ChicoC1AdentroNoIntersectan() {
-		Circulo c1 = new Circulo(new Punto(1, 1), 1);
+		Circulo c1 = new Circulo(new Punto(0, 0), 1);
 		Circulo c2 = new Circulo(new Punto(0, 0), 3);
-		assertFalse(c1.intersectaCon(c2));
+		assertTrue(c1.intersectaCon(c2));
 	}
 	
 	@Test

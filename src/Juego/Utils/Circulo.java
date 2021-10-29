@@ -1,4 +1,4 @@
-package Utils;
+package Juego.Utils;
 
 public class Circulo implements Cloneable{
 	private Punto centro;

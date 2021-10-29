@@ -1,12 +1,16 @@
-package Entidades;
+package Juego.Entidades;
 
-import Utils.Circulo;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import Juego.Utils.Circulo;
 
 public abstract class EntidadAbstracta{
 	
 	protected Circulo cuerpo;
 	protected double ataque = 0;
 	protected int clave = 0;
+	protected BufferedImage textura; 
 	
 	public int getClave()
 	{
@@ -35,9 +39,10 @@ public abstract class EntidadAbstracta{
 	}
 
 	
-	public EntidadAbstracta(Circulo cuerpo) {
+	public EntidadAbstracta(Circulo cuerpo, BufferedImage textura) {
 		super();
 		this.cuerpo = cuerpo;
+		this.textura = textura;
 	}
 	
 	public boolean intersectaCon(Circulo otroCuerpo) {
@@ -48,4 +53,12 @@ public abstract class EntidadAbstracta{
 	public Circulo getCirculo() {
 		return this.cuerpo;
 	}
+	
+	
+	public abstract void actualizar();
+	public abstract void dibujar(Graphics g);
+	
+	
+	
+	
 }

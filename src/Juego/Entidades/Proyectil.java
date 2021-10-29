@@ -1,8 +1,12 @@
-package Entidades;
+package Juego.Entidades;
 
-import Utils.Angulo;
-import Utils.Circulo;
-import Utils.Punto;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import Juego.Graficos.RecursosExternos;
+import Juego.Utils.Angulo;
+import Juego.Utils.Circulo;
+import Juego.Utils.Punto;
 
 public class Proyectil extends EntidadAbstracta implements Cloneable {
 	
@@ -38,8 +42,8 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 
 	
 
-	public Proyectil(double ataque, Circulo cuerpo, int clave, Angulo angulo, double velocidad) {
-		super(cuerpo);
+	public Proyectil(double ataque, Circulo cuerpo, int clave, Angulo angulo, double velocidad,BufferedImage textura) {
+		super(cuerpo, textura);
 		this.ataque = ataque;
 
 		this.clave = clave;
@@ -47,8 +51,8 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 		this.velocidad = velocidad;
 	}
 
-	public Proyectil(Circulo cuerpo, int clave) {
-		super(cuerpo);
+	public Proyectil(Circulo cuerpo, int clave, BufferedImage textura) {
+		super(cuerpo,textura);
 		this.ataque = 10;
 		this.clave = clave;
 		this.angulo = new Angulo(0);
@@ -61,7 +65,7 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 		} catch (CloneNotSupportedException ex) {
 			Circulo clonCuerpo = this.cuerpo.clone();
 			Angulo clonAncgulo = this.angulo.clone();
-			return new Proyectil(this.ataque, clonCuerpo, this.clave, clonAncgulo, this.velocidad);
+			return new Proyectil(this.ataque, clonCuerpo, this.clave, clonAncgulo, this.velocidad, textura);
 		}
 	}
 	
@@ -78,6 +82,25 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 
 	public void avanzar() {
 		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(angulo.getValor()),this.velocidad*Math.sin(angulo.getValor())));
+	}
+	public int getX() {
+		return (int) (this.cuerpo.getX() - this.cuerpo.getRadio());
+	}
+	public int getY() {
+		return (int) (this.cuerpo.getY() - this.cuerpo.getRadio());
+	}
+	@Override
+	public void actualizar() {
+		super.cuerpo.mover(new Punto(0.5,0));
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dibujar(Graphics g) {
+		g.drawImage(RecursosExternos.laser,getX(),getY(), null);
+		
 	}
 
 	

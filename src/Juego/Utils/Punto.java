@@ -1,4 +1,4 @@
-package Utils;
+package Juego.Utils;
 
 
 public class Punto implements Cloneable{
