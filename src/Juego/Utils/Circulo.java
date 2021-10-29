@@ -10,12 +10,9 @@ public class Circulo implements Cloneable{
 	}
 	
 	public Circulo clone() {
-		try {
-			return (Circulo) super.clone();
-		} catch (CloneNotSupportedException ex) {
-			Punto clonCentro = this.centro.clone();
-			return new Circulo(clonCentro, this.radio);
-		}
+	
+			return new Circulo(new Punto(getX(),getY()), this.radio);
+		
 	}
 	
 	public boolean intersectaCon(Circulo c2) { 

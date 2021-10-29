@@ -18,7 +18,9 @@ public class Mapa {
 	ArrayList<Darius> dariusEnPantalla = new ArrayList<Darius>();
 	ArrayList<Proyectil> proyectilesEnemigos = new ArrayList<Proyectil>();
 	ArrayList<Proyectil> proyectilesAliados = new ArrayList<Proyectil>();
+	ArrayList<Enemigo> bufferEnemigos = new ArrayList<Enemigo>();
 	Cronometro firerate;
+	Cronometro cd;
 
 	public Mapa() {
 		dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 50), 28), 1,
@@ -34,6 +36,7 @@ public class Mapa {
 		// new Proyectil(new Circulo(new Punto(20, 20), 1),
 		// 4,RecursosExternos.laser),RecursosExternos.player);
 		firerate = new Cronometro();
+		cd = new Cronometro();
 	}
 
 	public void calcularColisiones() {
@@ -77,7 +80,7 @@ public class Mapa {
 			
 		}
 		if(enemigosEnPantalla.removeAll(eliminarEntidad)) {
-			System.out.println("lol");
+			System.out.println("lel");
 			System.out.println(enemigosEnPantalla.size());
 		}
 		
@@ -86,7 +89,7 @@ public class Mapa {
 
 	public void aniadirEnemigos(int cant, Enemigo enemigo) {
 		for (int i = 0; i < cant; i++) {
-			enemigosEnPantalla.add(enemigo.clone());
+			bufferEnemigos.add(enemigo.clone());
 		}
 	}
 
@@ -127,7 +130,7 @@ public class Mapa {
 		double radio = aux.getRadio();
 		double x = aux.getX();
 		double y = aux.getY();
-		if (x - radio > 800 || x + radio < 0 || y - radio > 600 || y + radio < 0)
+		if (x - radio > 1000 || x + radio < 100 || y - radio > 800 || y + radio < 100)
 			return true;
 		return false;
 
@@ -155,7 +158,13 @@ public class Mapa {
 	}
 
 	public void actualizar() {
-
+		if(!cd.isRunning()&&!bufferEnemigos.isEmpty()) {
+			enemigosEnPantalla.add( bufferEnemigos.get(0));
+			bufferEnemigos.remove(0);
+			System.out.print("lol");
+			cd.run(2000);
+		}
+		
 		for (Enemigo e : enemigosEnPantalla) {
 			e.actualizar();
 
@@ -181,9 +190,10 @@ public class Mapa {
 			proyectil.actualizar();
 
 		}
-		cleanObjOutOfScreen(600, 800);
+		cleanObjOutOfScreen(800, 1000);
 		calcularColisiones();
 		firerate.update();
+		cd.update();
 	}
 
 }

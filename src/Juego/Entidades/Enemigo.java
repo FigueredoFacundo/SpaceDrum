@@ -100,7 +100,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	}
 
 	public void avanzar() {
-		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor())/10000, Math.sin(angulo.getValor())/10000));
+		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor())/80, Math.sin(angulo.getValor())/80));
 		
 	}
 
