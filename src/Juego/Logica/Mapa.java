@@ -26,9 +26,8 @@ public class Mapa {
 		dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 50), 28), 1,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 1, RecursosExternos.laser), RecursosExternos.player));
 
-		// dariusEnPantalla[1] = new Darius(100, new Circulo(new Punto(20, 200), 5), 2,
-		// new Proyectil(new Circulo(new Punto(20, 20), 1),
-		// 2,RecursosExternos.laser),RecursosExternos.player);
+		dariusEnPantalla.add( new Darius(100, new Circulo(new Punto(20, 200), 5), 2,
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 2, RecursosExternos.laser), RecursosExternos.player));
 		// dariusEnPantalla[2] = new Darius(100, new Circulo(new Punto(20, 350), 5), 3,
 		// new Proyectil(new Circulo(new Punto(20, 20), 1),
 		// 3,RecursosExternos.laser),RecursosExternos.player);
@@ -40,10 +39,10 @@ public class Mapa {
 	}
 
 	public void calcularColisiones() {
-		int[] bajasAliadas = { 0, 0, 0, 0 };
+
 		ArrayList<EntidadAbstracta> eliminar = new ArrayList<EntidadAbstracta>();
 		ArrayList<EntidadAbstracta> eliminarEntidad = new ArrayList<EntidadAbstracta>();
-		ArrayList<EntidadAbstracta> eliminarEnemigo = new ArrayList<EntidadAbstracta>();
+
 		for (Darius aliado : dariusEnPantalla) {
 			for (Proyectil proyectil : proyectilesEnemigos) {
 				if (aliado.chocar(proyectil)) {
@@ -73,17 +72,16 @@ public class Mapa {
 			}
 			proyectilesAliados.removeAll(eliminar);
 			eliminar.clear();
-			if (enemigo.getVida()==0) {
+			if (enemigo.getVida() == 0) {
 				eliminarEntidad.add(enemigo);
 				System.out.println("a la lista xd");
 			}
-			
+
 		}
-		if(enemigosEnPantalla.removeAll(eliminarEntidad)) {
+		if (enemigosEnPantalla.removeAll(eliminarEntidad)) {
 			System.out.println("lel");
 			System.out.println(enemigosEnPantalla.size());
 		}
-		
 
 	}
 
@@ -99,6 +97,7 @@ public class Mapa {
 
 			if (estaElObjetoEnPantalla(proyectil)) {
 				eliminacion.add(proyectil);
+				System.out.println("se fue nomas");
 			}
 		}
 		proyectilesEnemigos.removeAll(eliminacion);
@@ -118,6 +117,7 @@ public class Mapa {
 
 			if (estaElObjetoEnPantalla(enemigo)) {
 				eliminacion.add(enemigo);
+				System.out.println("se fue nomas");
 			}
 		}
 		enemigosEnPantalla.removeAll(eliminacion);
@@ -130,7 +130,7 @@ public class Mapa {
 		double radio = aux.getRadio();
 		double x = aux.getX();
 		double y = aux.getY();
-		if (x - radio > 1000 || x + radio < 100 || y - radio > 800 || y + radio < 100)
+		if (x - radio > 1000 || x + radio < -100 || y - radio > 800 || y + radio < -100)
 			return true;
 		return false;
 
@@ -158,17 +158,18 @@ public class Mapa {
 	}
 
 	public void actualizar() {
-		if(!cd.isRunning()&&!bufferEnemigos.isEmpty()) {
-			enemigosEnPantalla.add( bufferEnemigos.get(0));
+		if (!cd.isRunning() && !bufferEnemigos.isEmpty()) {
+			enemigosEnPantalla.add(bufferEnemigos.get(0));
 			bufferEnemigos.remove(0);
 			System.out.print("lol");
 			cd.run(2000);
 		}
-		
+
 		for (Enemigo e : enemigosEnPantalla) {
 			e.actualizar();
 
 		}
+		
 		if (KeyBoard.LEFT && dariusEnPantalla.get(0).getX() > 0) {
 			dariusEnPantalla.get(0).izquierda();
 		}

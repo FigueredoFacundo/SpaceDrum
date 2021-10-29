@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 	private final int FPS = 60;
 	private final double TARGETTIME = 1000 / FPS;
 	private double delta = 0;
-	private int fpsPromedio = FPS;
+	private int AVERAGEFPS = FPS;
 	int x = 0;
 	private Mapa mapa;
 	private KeyBoard teclado;
@@ -60,7 +61,7 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 
 	public void actualizar() {
 		teclado.update();
-		mapa.actualizar();;
+		mapa.actualizar();
 	}
 
 	public void dibujar() {
@@ -75,7 +76,9 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 		// zona dibujo-------------------------------------------------------------
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, ANCHO, ALTO);
+		
 		mapa.dibujar(g);
+		System.out.println(AVERAGEFPS);
 		
 
 		// -------------------------------------------------------------
@@ -97,16 +100,18 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 			now = System.nanoTime();
 			delta += (now - lastTime) / TARGETTIME;
 			lastTime = now;
+			time+=(now-lastTime);
 			if (delta >= 1) {
 				actualizar();
 				dibujar();
 				delta--;
+				frames++;
 				
 				
 
 			}
 			if (time >= 1000000000) {
-				fpsPromedio = frames;
+				AVERAGEFPS=frames;
 				frames = 0;
 				time = 0;
 			}
