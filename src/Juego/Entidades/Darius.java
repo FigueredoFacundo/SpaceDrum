@@ -121,7 +121,6 @@ public class Darius extends EntidadAbstracta {
 
 	@Override
 	public void dibujar(Graphics g) {
-		g.drawRect(0, 0, 100, 100);
 		g.drawImage(LifeBarGif.getFrame(vida,vidaMax), getX()-12, getY()-12,60,20, null);
 		g.drawImage(textura, getX(), getY(), null);
 	}

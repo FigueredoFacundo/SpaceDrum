@@ -28,6 +28,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	private double vidaMax;
 	private Angulo angulo;
 	private Proyectil proyectiles;
+	private double velocidad;
 
 	public int getClave() {
 		return clave;
@@ -62,7 +63,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	}
 
 	public Enemigo(Circulo cuerpo, double vida, double ataque, Angulo angulo, Proyectil proyectiles,
-			BufferedImage textura) {
+			BufferedImage textura, double velocidad) {
 		super(cuerpo, textura);
 		this.vidaMax = vida;
 		this.vida = vidaMax;
@@ -72,6 +73,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 		this.proyectiles.setClave(this.clave);
 		this.ataque = ataque;
 		this.angulo = angulo;
+		this.velocidad = velocidad;
 	}
 
 	public boolean chocar(EntidadAbstracta entidad) {
@@ -101,7 +103,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	}
 
 	public void avanzar() {
-		super.cuerpo.mover(new Punto(Math.cos(angulo.getValor())/80, Math.sin(angulo.getValor())/80));
+		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(Math.toRadians(angulo.getValor()))/100,this.velocidad*Math.sin(Math.toRadians(angulo.getValor()))/100));
 		
 	}
 
@@ -109,7 +111,7 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 		Circulo cloncirculo = this.cuerpo.clone();
 		Angulo clonangulo = this.angulo.clone();
 		Proyectil clonproyectil = this.proyectiles.clone();
-		return new Enemigo(cloncirculo, this.vida, this.ataque, clonangulo, clonproyectil,textura);
+		return new Enemigo(cloncirculo, this.vida, this.ataque, clonangulo, clonproyectil,textura, velocidad);
 	}
 
 	public int getX() {
