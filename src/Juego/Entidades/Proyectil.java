@@ -56,7 +56,7 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 		this.ataque = 10;
 		this.clave = clave;
 		this.angulo = new Angulo(0);
-		this.velocidad = 1;
+		this.velocidad = 5;
 	}
 
 	public Proyectil clone() {
@@ -65,7 +65,7 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 		} catch (CloneNotSupportedException ex) {
 			Circulo clonCuerpo = this.cuerpo.clone();
 			Angulo clonAncgulo = this.angulo.clone();
-			return new Proyectil(this.ataque, clonCuerpo, this.clave, clonAncgulo, this.velocidad, textura);
+			return new Proyectil(this.ataque, clonCuerpo, this.clave, clonAncgulo, this.velocidad, RecursosExternos.laserRed);
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 	}
 
 	public void avanzar() {
-		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(angulo.getValor()),this.velocidad*Math.sin(angulo.getValor())));
+		super.cuerpo.mover(new Punto(0,0.5));
 	}
 	public int getX() {
 		return (int) (this.cuerpo.getX() - this.cuerpo.getRadio());
@@ -91,15 +91,19 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 	}
 	@Override
 	public void actualizar() {
-		super.cuerpo.mover(new Punto(0.5,0));
+		//super.cuerpo.mover(new Punto(0.5,0));
+		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(Math.toRadians(angulo.getValor()))/10,this.velocidad*Math.sin(Math.toRadians(angulo.getValor()))/10));
 		
 		// TODO Auto-generated method stub
 		
 	}
+	public BufferedImage getTextura() {
+		return textura;
+	}
 
 	@Override
 	public void dibujar(Graphics g) {
-		g.drawImage(RecursosExternos.laser,getX(),getY(), null);
+		g.drawImage(getTextura(),getX(),getY(), null);
 		
 	}
 

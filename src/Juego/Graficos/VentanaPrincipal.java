@@ -4,13 +4,9 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
-
 import javax.swing.JFrame;
 
-import Juego.Entidades.EntidadAbstracta;
 import Juego.Logica.Mapa;
 import Juego.input.KeyBoard;
 
@@ -60,7 +56,6 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 		RecursosExternos.init();
 		BackGroundGIf.init();
 	}
-
 
 	@Override
 	public void run() {
