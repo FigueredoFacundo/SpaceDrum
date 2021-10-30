@@ -8,11 +8,15 @@ public class RecursosExternos {
 	public static BufferedImage enemigo;
 	public static BufferedImage laser;
 	public static BufferedImage laserRed;
+	public static BufferedImage [] exp = new BufferedImage[9];
 	public static void init() {
 		player = Cargador.ImageLoader("/ships/jugador.png");
 		enemigo = Cargador.ImageLoader("/ships/ufo.png");
 		laser = Cargador.ImageLoader("/ships/laserBlue01.png");
 		laserRed = Cargador.ImageLoader("/ships/laserRed01.png");
+		for(int i = 0;i<exp.length;i++) {
+			exp[i]= Cargador.ImageLoader("/explosion/"+i+".png");
+		}
 	}
 
 }

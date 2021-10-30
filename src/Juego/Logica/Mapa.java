@@ -1,12 +1,14 @@
 package Juego.Logica;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import Juego.Entidades.Darius;
 import Juego.Entidades.Enemigo;
 import Juego.Entidades.EntidadAbstracta;
 import Juego.Entidades.Proyectil;
+import Juego.Graficos.Animacion;
 import Juego.Graficos.RecursosExternos;
 import Juego.Utils.Circulo;
 import Juego.Utils.Cronometro;
@@ -19,6 +21,7 @@ public class Mapa {
 	ArrayList<Proyectil> proyectilesEnemigos = new ArrayList<Proyectil>();
 	ArrayList<Proyectil> proyectilesAliados = new ArrayList<Proyectil>();
 	ArrayList<Enemigo> bufferEnemigos = new ArrayList<Enemigo>();
+	ArrayList<Animacion> exp = new ArrayList<Animacion>();
 	Cronometro firerate;
 	Cronometro cd;
 	Cronometro enemigoFireRate;
@@ -49,7 +52,7 @@ public class Mapa {
 			for (Proyectil proyectil : proyectilesEnemigos) {
 				if (aliado.chocar(proyectil)) {
 					eliminar.add(proyectil);
-					System.out.println("me dieron" + aliado.getVida());
+					System.out.println("me dieron" + aliado.getVida() );
 				}
 
 			}
@@ -60,6 +63,7 @@ public class Mapa {
 			}
 			if (aliado.getVida() == 0) {
 				eliminarEntidad.add(aliado);
+				
 			}
 		}
 		dariusEnPantalla.removeAll(eliminarEntidad);
@@ -77,6 +81,7 @@ public class Mapa {
 			eliminar.clear();
 			if (enemigo.getVida() == 0) {
 				eliminarEntidad.add(enemigo);
+				playExplosion(enemigo.getCuerpo());
 				System.out.println("a la lista xd");
 			}
 
@@ -149,6 +154,7 @@ public class Mapa {
 	}
 
 	public void dibujar(Graphics g) {
+		Graphics2D  g2d= (Graphics2D)g;
 		for (Darius darius : dariusEnPantalla) {
 			darius.dibujar(g);
 
@@ -165,8 +171,18 @@ public class Mapa {
 			e.dibujar(g);
 
 		}
+		for(int i = 0;i<exp.size();i++) {
+			Animacion anim =exp.get(i);
+			g2d.drawImage(anim.getCurrentFrame(), (int)anim.getPosicion().getX(),(int) anim.getPosicion().getY(), null);
+			
+		}
 	}
-
+	
+	public void playExplosion(Circulo posicion) {
+		
+		exp.add(new Animacion(RecursosExternos.exp,50,posicion));
+	}
+	
 	public void actualizar() {
 		if (!cd.isRunning() && !bufferEnemigos.isEmpty()) {
 			enemigosEnPantalla.add(bufferEnemigos.get(0));
@@ -209,6 +225,13 @@ public class Mapa {
 		for (Proyectil proyectil : proyectilesEnemigos) {
 			proyectil.actualizar();
 
+		}
+		for(int i = 0;i<exp.size();i++) {
+			Animacion anim =exp.get(i);
+			anim.update();
+			if(!anim.isRunning()) {
+				exp.remove(i);
+			}
 		}
 		cleanObjOutOfScreen(800, 1000);
 		calcularColisiones();
