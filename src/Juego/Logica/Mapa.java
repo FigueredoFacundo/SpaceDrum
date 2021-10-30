@@ -11,6 +11,7 @@ import Juego.Entidades.Proyectil;
 import Juego.Graficos.Animacion;
 import Juego.Graficos.RecursosExternos;
 import Juego.Utils.Circulo;
+import Juego.Utils.Constantes;
 import Juego.Utils.Cronometro;
 import Juego.Utils.Punto;
 import Juego.input.KeyBoard;
@@ -27,11 +28,11 @@ public class Mapa {
 	Cronometro enemigoFireRate;
 
 	public Mapa() {
-		dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 50), 28), 1,
+		dariusEnPantalla.add(new Darius(1000, new Circulo(new Punto(20, 50), 28), 1,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 1, RecursosExternos.laser), RecursosExternos.player));
 
-		dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 200), 28), 2,
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 2, RecursosExternos.laser), RecursosExternos.player));
+		/*dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 200), 28), 2,
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 2, RecursosExternos.laser), RecursosExternos.player));*/
 		// dariusEnPantalla[2] = new Darius(100, new Circulo(new Punto(20, 350), 5), 3,
 		// new Proyectil(new Circulo(new Punto(20, 20), 1),
 		// 3,RecursosExternos.laser),RecursosExternos.player);
@@ -208,10 +209,10 @@ public class Mapa {
 		if (KeyBoard.UP && dariusEnPantalla.get(0).getY() > 0) {
 			dariusEnPantalla.get(0).subir();
 		}
-		if (KeyBoard.DOWN && dariusEnPantalla.get(0).getY() < 600 - 90) {
+		if (KeyBoard.DOWN && dariusEnPantalla.get(0).getY() < Constantes.ALTO_PANTALLA - 90) {
 			dariusEnPantalla.get(0).bajar();
 		}
-		if (KeyBoard.RIGHT && dariusEnPantalla.get(0).getX() < 800 - 56) {
+		if (KeyBoard.RIGHT && dariusEnPantalla.get(0).getX() < Constantes.ANCHO_PANTALLA - 56) {
 			dariusEnPantalla.get(0).derecha();
 		}
 		if (KeyBoard.SHOOT && !firerate.isRunning()) {

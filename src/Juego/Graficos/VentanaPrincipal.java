@@ -1,13 +1,14 @@
 package Juego.Graficos;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+
 import javax.swing.JFrame;
 
 import Juego.Logica.Mapa;
+import Juego.Utils.Constantes;
 import Juego.input.KeyBoard;
 
 public class VentanaPrincipal extends JFrame implements Runnable {
@@ -16,8 +17,6 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int ANCHO = 800;
-	public static final int ALTO = 600;
 	private Canvas canvas;
 	private Thread hiloPrincipal;
 	private boolean running = false;
@@ -37,16 +36,16 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 	public VentanaPrincipal(Mapa mapa) {
 		this.mapa = mapa;
 		setTitle("Space run");
-		setSize(ANCHO, ALTO);
+		setSize(Constantes.ANCHO_PANTALLA, Constantes.ALTO_PANTALLA);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		teclado = new KeyBoard();
 		canvas = new Canvas();
-		canvas.setPreferredSize(new Dimension(ANCHO, ALTO));
-		canvas.setMaximumSize(new Dimension(ANCHO, ALTO));
-		canvas.setMinimumSize(new Dimension(ANCHO, ALTO));
+		canvas.setPreferredSize(new Dimension(Constantes.ANCHO_PANTALLA, Constantes.ALTO_PANTALLA));
+		canvas.setMaximumSize(new Dimension(Constantes.ANCHO_PANTALLA, Constantes.ALTO_PANTALLA));
+		canvas.setMinimumSize(new Dimension(Constantes.ANCHO_PANTALLA, Constantes.ALTO_PANTALLA));
 		add(canvas);
 		canvas.addKeyListener(teclado);
 		init();
@@ -92,7 +91,7 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 				
 				// zona dibujo-------------------------------------------------------------
 				if (frames > backgroundDelay +30 && !this.partidaPausada) {
-					g.drawImage(BackGroundGIf.getFrame(),0,0,800,600, null);
+					g.drawImage(BackGroundGIf.getFrame(), 0, 0, Constantes.ANCHO_PANTALLA, Constantes.ALTO_PANTALLA, null);
 					backgroundDelay = frames;
 				}
 
@@ -101,18 +100,18 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 				}
 				
 				if(!this.partidaIniciada) {
-					 g.drawImage(RecursosExternos.startPoster,ANCHO/3,ALTO*3/4,260,30, null);	
+					 g.drawImage(RecursosExternos.startPoster, Constantes.ANCHO_PANTALLA/3, Constantes.ALTO_PANTALLA*3/4,260,30, null);	
 				}
 				if(this.partidaIniciada && !partidaTerminada) {
 					mapa.dibujar(g);
 					if(!this.partidaPausada) {
 						this.partidaTerminada = !mapa.actualizar();
 					}else {
-						g.drawImage(RecursosExternos.stopPoster,ANCHO/3,ALTO*3/4,260,30, null);
+						g.drawImage(RecursosExternos.stopPoster, Constantes.ANCHO_PANTALLA/3, Constantes.ALTO_PANTALLA*3/4,260,30, null);
 					}			
 				}
 				if(partidaTerminada) {
-					g.drawImage(RecursosExternos.endPoster,ANCHO/3,ALTO*2/3,260,90, null);			
+					g.drawImage(RecursosExternos.endPoster, Constantes.ANCHO_PANTALLA/3, Constantes.ALTO_PANTALLA*2/3,260,90, null);			
 				}
 				
 				
