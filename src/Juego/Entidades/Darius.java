@@ -119,7 +119,6 @@ public class Darius extends EntidadAbstracta {
 
 	@Override
 	public void dibujar(Graphics g) {
-		g.drawRect(0, 0, 100, 100);
 		g.drawImage(textura, getX(), getY(), null);
 	}
 }
