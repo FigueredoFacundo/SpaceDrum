@@ -1,7 +1,5 @@
 package Juego.Utils;
 
-import java.io.File;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -12,7 +10,7 @@ public class Sonido {
 	Clip clip;
 
 	public Sonido(String path) throws Exception {
-		AudioInputStream audioIn = AudioSystem.getAudioInputStream(new File(path));
+		AudioInputStream audioIn = AudioSystem.getAudioInputStream(Sonido.class.getResource(path));
 		clip = AudioSystem.getClip();
 		clip.open(audioIn);
 	}
