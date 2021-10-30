@@ -26,8 +26,8 @@ public class Mapa {
 		dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 50), 28), 1,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 1, RecursosExternos.laser), RecursosExternos.player));
 
-		dariusEnPantalla.add( new Darius(100, new Circulo(new Punto(20, 200), 5), 2,
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 2, RecursosExternos.laser), RecursosExternos.player));
+//		dariusEnPantalla.add( new Darius(100, new Circulo(new Punto(20, 200), 5), 2,
+//				new Proyectil(new Circulo(new Punto(20, 20), 1), 2, RecursosExternos.laser), RecursosExternos.player));
 		// dariusEnPantalla[2] = new Darius(100, new Circulo(new Punto(20, 350), 5), 3,
 		// new Proyectil(new Circulo(new Punto(20, 20), 1),
 		// 3,RecursosExternos.laser),RecursosExternos.player);
@@ -153,11 +153,10 @@ public class Mapa {
 		}
 		for (Enemigo e : enemigosEnPantalla) {
 			e.dibujar(g);
-
 		}
 	}
 
-	public void actualizar() {
+	public boolean actualizar() {
 		if (!cd.isRunning() && !bufferEnemigos.isEmpty()) {
 			enemigosEnPantalla.add(bufferEnemigos.get(0));
 			bufferEnemigos.remove(0);
@@ -195,6 +194,8 @@ public class Mapa {
 		calcularColisiones();
 		firerate.update();
 		cd.update();
+		
+		return dariusEnPantalla.size()>0;
 	}
 
 }

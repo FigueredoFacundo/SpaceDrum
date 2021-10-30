@@ -20,7 +20,7 @@ public class Partida {
 	
     public void iniciarPartida() {
     Mapa mapa = new Mapa();
-    VentanaPrincipal ventana= new VentanaPrincipal(mapa);
+
 	Enemigo enemigo1 = new Enemigo(new Circulo(new Punto(500, -50), 20), 100, 25, new Angulo(90),
 			new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 	
@@ -32,8 +32,11 @@ public class Partida {
 	
 	Enemigo jefe = new Enemigo(new Circulo(new Punto(500, 450), 5), 1000, 25, new Angulo(0),
 			new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
-	ventana.iniciar();
-	mapa.aniadirEnemigos(6, enemigo1);
+	
+    VentanaPrincipal ventana= new VentanaPrincipal(mapa);
+    ventana.iniciar();
+	
+    mapa.aniadirEnemigos(6, enemigo1);
 	
 	mapa.aniadirEnemigos(2, enemigo2);
 	mapa.aniadirEnemigos(3, enemigo3);

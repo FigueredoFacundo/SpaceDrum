@@ -34,7 +34,9 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 	int x = 0;
 	private Mapa mapa;
 	private KeyBoard teclado;
-	
+	boolean partidaIniciada = false;
+	boolean partidaTerminada = false;
+	boolean partidaPausada = false;
 
 	public VentanaPrincipal(Mapa mapa) {
 		this.mapa = mapa;
@@ -56,37 +58,9 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 
 	private void init() {
 		RecursosExternos.init();
-
+		BackGroundGIf.init();
 	}
 
-	public void actualizar() {
-		teclado.update();
-		mapa.actualizar();
-	}
-
-	public void dibujar() {
-		bs = canvas.getBufferStrategy();
-
-		if (bs == null) {
-			canvas.createBufferStrategy(2);
-			return;
-		}
-
-		g = bs.getDrawGraphics();
-		// zona dibujo-------------------------------------------------------------
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, ANCHO, ALTO);
-		
-		mapa.dibujar(g);
-		System.out.println(AVERAGEFPS);
-		
-
-		// -------------------------------------------------------------
-
-		g.dispose();
-		bs.show();
-
-	}
 
 	@Override
 	public void run() {
@@ -94,21 +68,66 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 		long lastTime = System.nanoTime();
 		int frames = 0;
 		long time = 0;
+		long paused = 0;
+		long backgroundDelay = 0;
 		
 		while (running) {
-
 			now = System.nanoTime();
 			delta += (now - lastTime) / TARGETTIME;
 			lastTime = now;
 			time+=(now-lastTime);
+			
 			if (delta >= 1) {
-				actualizar();
-				dibujar();
+				if (KeyBoard.P && frames > paused +120) {
+					this.partidaPausada = !this.partidaPausada;
+					paused = frames;
+				}
+				teclado.update();
+				
+				
+				bs = canvas.getBufferStrategy();
+				while (bs == null) {
+					canvas.createBufferStrategy(2);
+					bs = canvas.getBufferStrategy();
+				}
+
+				g = bs.getDrawGraphics();
+				
+				
+				// zona dibujo-------------------------------------------------------------
+				if (frames > backgroundDelay +30) {
+					g.drawImage(BackGroundGIf.getFrame(),0,0,800,600, null);
+					backgroundDelay = frames;
+				}
+
+				if (KeyBoard.SPACE && !this.partidaIniciada) {
+					this.partidaIniciada = true;
+				}
+				
+				if(!this.partidaIniciada) {
+					 g.drawImage(RecursosExternos.startPoster,ANCHO/3,ALTO*3/4,260,30, null);	
+				}
+				if(this.partidaIniciada && !partidaTerminada) {
+					mapa.dibujar(g);
+					if(!this.partidaPausada) {
+						this.partidaTerminada = !mapa.actualizar();
+					}else {
+						g.drawImage(RecursosExternos.stopPoster,ANCHO/3,ALTO*3/4,260,30, null);
+					}			
+				}
+				if(partidaTerminada) {
+					g.drawImage(RecursosExternos.endPoster,ANCHO/3,ALTO*2/3,260,90, null);			
+				}
+				
+				
+				System.out.println(AVERAGEFPS);
+				// -------------------------------------------------------------
+
+				g.dispose();
+				bs.show();
+
 				delta--;
 				frames++;
-				
-				
-
 			}
 			if (time >= 1000000000) {
 				AVERAGEFPS=frames;
@@ -116,7 +135,6 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 				time = 0;
 			}
 		}
-
 		stop();
 	}
 	public void iniciar() {
