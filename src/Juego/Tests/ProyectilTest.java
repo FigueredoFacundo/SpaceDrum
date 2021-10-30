@@ -66,7 +66,7 @@ public class ProyectilTest {
 		Proyectil p2 = new Proyectil(new Circulo(new Punto(20, 20), 1), 0,RecursosExternos.laser);
 
 		Enemigo e1 = new Enemigo(new Circulo(new Punto(21, 21), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player,1);
 		Darius d1 = new Darius(100, new Circulo(new Punto(20, 20), 5), 1,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 

@@ -22,7 +22,7 @@ public class DariusTest {
 		Darius d1 = new Darius(100, new Circulo(new Punto(20, 20), 5), 1,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		Enemigo e1 = new Enemigo(new Circulo(new Punto(21, 21), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player,1);
 		
 		d1.chocar(e1);
 		assertEquals(d1.getVidaMax()-e1.getAtaque(), d1.getVida(), 0);
@@ -35,7 +35,7 @@ public class DariusTest {
 		Darius d1 = new Darius(100, new Circulo(new Punto(20, 20), 5), 1,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
 		Enemigo e1 = new Enemigo(new Circulo(new Punto(21, 21), 1.5), 100, 25, new Angulo(90),
-				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player);
+				new Proyectil(new Circulo(new Punto(20, 20), 1), 1,RecursosExternos.laser),RecursosExternos.player,1);
 		
 		d1.chocar(e1.getProyectil());
 		assertEquals(d1.getVidaMax()-e1.getProyectil().getAtaque(), d1.getVida(), 0);
