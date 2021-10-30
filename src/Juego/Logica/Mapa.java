@@ -240,7 +240,9 @@ public class Mapa {
 		cd.update();
 		enemigoFireRate.update();
 		
-		return dariusEnPantalla.size()>0 && !bufferEnemigos.isEmpty();
+		boolean hayEnemigos = dariusEnPantalla.size()>0 && !bufferEnemigos.isEmpty();
+		boolean hayEnemigos2 = dariusEnPantalla.size()>0 && enemigosEnPantalla.size()>0;
+		return hayEnemigos || hayEnemigos2;
 	}
 
 }
