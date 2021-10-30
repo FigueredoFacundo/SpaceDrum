@@ -63,7 +63,8 @@ public class Mapa {
 			}
 			if (aliado.getVida() == 0) {
 				eliminarEntidad.add(aliado);
-				
+
+				RecursosExternos.explosion.play();
 			}
 		}
 		dariusEnPantalla.removeAll(eliminarEntidad);
@@ -82,12 +83,13 @@ public class Mapa {
 			if (enemigo.getVida() == 0) {
 				eliminarEntidad.add(enemigo);
 				playExplosion(enemigo.getCuerpo());
+				RecursosExternos.explosion.play();
 				System.out.println("a la lista xd");
 			}
 
 		}
 		if (enemigosEnPantalla.removeAll(eliminarEntidad)) {
-			
+
 			System.out.println(enemigosEnPantalla.size());
 		}
 
@@ -105,7 +107,7 @@ public class Mapa {
 
 			if (estaElObjetoEnPantalla(proyectil)) {
 				eliminacion.add(proyectil);
-				
+
 			}
 		}
 		proyectilesEnemigos.removeAll(eliminacion);
@@ -149,7 +151,6 @@ public class Mapa {
 			proyectilesEnemigos.add(enemigo.disparar());
 
 		}
-		
 
 	}
 
@@ -169,7 +170,6 @@ public class Mapa {
 		}
 		for (Enemigo e : enemigosEnPantalla) {
 			e.dibujar(g);
-
 		}
 		for(int i = 0;i<exp.size();i++) {
 			Animacion anim =exp.get(i);
@@ -177,17 +177,18 @@ public class Mapa {
 			
 		}
 	}
-	
+
 	public void playExplosion(Circulo posicion) {
 		
 		exp.add(new Animacion(RecursosExternos.exp,50,posicion));
 	}
 	
-	public void actualizar() {
+	public boolean actualizar() {
+
 		if (!cd.isRunning() && !bufferEnemigos.isEmpty()) {
 			enemigosEnPantalla.add(bufferEnemigos.get(0));
 			bufferEnemigos.remove(0);
-			
+
 			cd.run(2000);
 		}
 
@@ -216,7 +217,7 @@ public class Mapa {
 		if (KeyBoard.SHOOT && !firerate.isRunning()) {
 			proyectilesAliados.add(dariusEnPantalla.get(0).disparar());
 			firerate.run(100);
-
+			RecursosExternos.shoot.play();
 		}
 		for (Proyectil proyectil : proyectilesAliados) {
 			proyectil.actualizar();
@@ -238,6 +239,7 @@ public class Mapa {
 		firerate.update();
 		cd.update();
 		enemigoFireRate.update();
+		return dariusEnPantalla.size()>0;
 	}
 
 }

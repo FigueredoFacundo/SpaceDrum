@@ -2,22 +2,17 @@ package Juego.Entidades;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
 import Juego.Graficos.RecursosExternos;
 import Juego.Utils.Circulo;
 import Juego.Utils.Punto;
-import Juego.input.KeyBoard;
 
 public class Darius extends EntidadAbstracta {
-	
-	
+
 	private double vidaMax;
 	private double vida;
 	private Proyectil proyectil;
 	private boolean invulnerable;
-	
-	
-	
+
 	public double getVida() {
 		return vida;
 	}
@@ -50,11 +45,10 @@ public class Darius extends EntidadAbstracta {
 		this.vidaMax = vidaMax;
 	}
 
-	public double getVidaMax()
-	{
+	public double getVidaMax() {
 		return this.vidaMax;
 	}
-	
+
 	public Darius(double vida, Circulo cuerpo, int clave, Proyectil proyectil, BufferedImage textura) {
 		super(cuerpo, textura);
 		this.proyectil = proyectil;
@@ -62,13 +56,10 @@ public class Darius extends EntidadAbstracta {
 		this.vidaMax = vida;
 		this.vida = this.vidaMax;
 		this.clave = clave;
-		
 	}
-	
-	
 
 	public boolean chocar(EntidadAbstracta entidad) {
-		if (this.intersectaCon(entidad.cuerpo) && (entidad.getClave()*this.getClave())<0) {
+		if (this.intersectaCon(entidad.cuerpo) && (entidad.getClave() * this.getClave()) < 0) {
 			this.recibirDanio(entidad.getAtaque());
 			return true;
 		}
@@ -86,7 +77,7 @@ public class Darius extends EntidadAbstracta {
 	}
 
 	public Proyectil disparar() {
-		return new Proyectil(new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),1,RecursosExternos.laser);
+		return new Proyectil(new Circulo(new Punto(cuerpo.getX(), cuerpo.getY()), 10.0), 1, RecursosExternos.laser);
 	}
 
 	public void setInvulnerable(boolean invulnerable) {
@@ -112,24 +103,23 @@ public class Darius extends EntidadAbstracta {
 	public int getClave() {
 		return this.clave;
 	}
+
 	public int getX() {
 		return (int) (this.cuerpo.getX() - this.cuerpo.getRadio());
 	}
+
 	public int getY() {
 		return (int) (this.cuerpo.getY() - this.cuerpo.getRadio());
 	}
 
 	@Override
 	public void actualizar() {
-	
-		
-		
-		
+
 	}
 
 	@Override
 	public void dibujar(Graphics g) {
-		 g.drawRect(0, 0, 100, 100);
-		 g.drawImage(textura,getX(),getY(), null);
+		g.drawRect(0, 0, 100, 100);
+		g.drawImage(textura, getX(), getY(), null);
 	}
 }
