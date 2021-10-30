@@ -87,19 +87,19 @@ public class Darius extends EntidadAbstracta {
 	}
 
 	public void subir() {
-		super.cuerpo.mover(new Punto(0, -0.2));
+		super.cuerpo.mover(new Punto(0, -3));
 	}
 
 	public void bajar() {
-		super.cuerpo.mover(new Punto(0, 0.2));
+		super.cuerpo.mover(new Punto(0, 3));
 	}
 
 	public void izquierda() {
-		super.cuerpo.mover(new Punto(-0.2, 0));
+		super.cuerpo.mover(new Punto(-3, 0));
 	}
 
 	public void derecha() {
-		super.cuerpo.mover(new Punto(0.2, 0));
+		super.cuerpo.mover(new Punto(3, 0));
 	}
 
 	public int getClave() {

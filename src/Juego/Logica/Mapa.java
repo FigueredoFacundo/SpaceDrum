@@ -32,12 +32,12 @@ public class Mapa {
 
 		dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 200), 28), 2,
 				new Proyectil(new Circulo(new Punto(20, 20), 1), 2, RecursosExternos.laser), RecursosExternos.player));
-		// dariusEnPantalla[2] = new Darius(100, new Circulo(new Punto(20, 350), 5), 3,
-		// new Proyectil(new Circulo(new Punto(20, 20), 1),
-		// 3,RecursosExternos.laser),RecursosExternos.player);
-		// dariusEnPantalla[3] = new Darius(100, new Circulo(new Punto(20, 500), 5), 4,
-		// new Proyectil(new Circulo(new Punto(20, 20), 1),
-		// 4,RecursosExternos.laser),RecursosExternos.player);
+		 dariusEnPantalla.add(new Darius(100, new Circulo(new Punto(20, 350), 5), 3,
+		 new Proyectil(new Circulo(new Punto(20, 20), 1),
+		 3,RecursosExternos.laser),RecursosExternos.player));
+		 dariusEnPantalla.add (new Darius(100, new Circulo(new Punto(20, 500), 5), 4,
+		 new Proyectil(new Circulo(new Punto(20, 20), 1),
+		 4,RecursosExternos.laser),RecursosExternos.player));
 		firerate = new Cronometro();
 		cd = new Cronometro();
 		enemigoFireRate = new Cronometro();
@@ -240,7 +240,9 @@ public class Mapa {
 		cd.update();
 		enemigoFireRate.update();
 		
-		return dariusEnPantalla.size()>0 && !bufferEnemigos.isEmpty();
+		boolean hayEnemigos = dariusEnPantalla.size()>0 && !bufferEnemigos.isEmpty();
+		boolean hayEnemigos2 = dariusEnPantalla.size()>0 && enemigosEnPantalla.size()>0;
+		return hayEnemigos || hayEnemigos2;
 	}
 
 }
