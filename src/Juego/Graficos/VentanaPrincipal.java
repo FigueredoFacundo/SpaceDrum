@@ -55,6 +55,7 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 	private void init() {
 		RecursosExternos.init();
 		BackGroundGIf.init();
+		LifeBarGif.init();
 	}
 
 	@Override
@@ -90,7 +91,7 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 				
 				
 				// zona dibujo-------------------------------------------------------------
-				if (frames > backgroundDelay +30) {
+				if (frames > backgroundDelay +30 && !this.partidaPausada) {
 					g.drawImage(BackGroundGIf.getFrame(),0,0,800,600, null);
 					backgroundDelay = frames;
 				}

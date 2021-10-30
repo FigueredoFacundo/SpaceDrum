@@ -239,7 +239,8 @@ public class Mapa {
 		firerate.update();
 		cd.update();
 		enemigoFireRate.update();
-		return dariusEnPantalla.size()>0;
+		
+		return dariusEnPantalla.size()>0 && !bufferEnemigos.isEmpty();
 	}
 
 }
