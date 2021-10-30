@@ -164,11 +164,10 @@ public class Mapa {
 		}
 		for (Enemigo e : enemigosEnPantalla) {
 			e.dibujar(g);
-
 		}
 	}
 
-	public void actualizar() {
+	public boolean actualizar() {
 		if (!cd.isRunning() && !bufferEnemigos.isEmpty()) {
 			enemigosEnPantalla.add(bufferEnemigos.get(0));
 			bufferEnemigos.remove(0);
@@ -216,6 +215,7 @@ public class Mapa {
 		firerate.update();
 		cd.update();
 		enemigoFireRate.update();
+		return dariusEnPantalla.size()>0;
 	}
 
 }

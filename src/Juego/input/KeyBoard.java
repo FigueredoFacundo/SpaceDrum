@@ -7,7 +7,7 @@ public class KeyBoard implements KeyListener {
 	
 	private boolean[] keys = new boolean[256];
 	
-	public static boolean UP, LEFT, RIGHT, DOWN, SHOOT;
+	public static boolean UP, LEFT, RIGHT, DOWN, SHOOT, SPACE,P;
 	public KeyBoard() {
 		// TODO Auto-generated constructor stub
 	}
@@ -33,6 +33,8 @@ public class KeyBoard implements KeyListener {
 		RIGHT= keys[KeyEvent.VK_RIGHT];
 		DOWN= keys[KeyEvent.VK_DOWN];
 		SHOOT = keys[KeyEvent.VK_Z];
+		SPACE = keys[KeyEvent.VK_SPACE];
+		P = keys[KeyEvent.VK_P];
 	}
 
 }
