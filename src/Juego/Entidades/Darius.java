@@ -2,12 +2,12 @@ package Juego.Entidades;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import Juego.Graficos.RecursosExternos;
 import Juego.Utils.Circulo;
 import Juego.Utils.Punto;
 import Juego.Utils.Sonido;
-import Juego.input.KeyBoard;
 
 public class Darius extends EntidadAbstracta {
 	
@@ -16,7 +16,8 @@ public class Darius extends EntidadAbstracta {
 	private double vida;
 	private Proyectil proyectil;
 	private boolean invulnerable;
-	private Sonido sonido;
+	private Sonido sonido1;
+	private Sonido sonido2;
 	
 	public double getVida() {
 		return vida;
@@ -63,7 +64,8 @@ public class Darius extends EntidadAbstracta {
 		this.vida = this.vidaMax;
 		this.clave = clave;
 		try {
-			this.sonido = new Sonido("Recursos/sonidos/bullet2.wav");
+			this.sonido1 = new Sonido("Recursos/sonidos/bullet1.wav");
+			this.sonido2 = new Sonido("Recursos/sonidos/bullet2.wav");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -72,7 +74,7 @@ public class Darius extends EntidadAbstracta {
 	
 
 	public boolean chocar(EntidadAbstracta entidad) {
-		if (this.intersectaCon(entidad.cuerpo) && entidad.getClave() == 0) {
+		if (this.intersectaCon(entidad.cuerpo) && (entidad.getClave()*this.getClave())<0) {
 			this.recibirDanio(entidad.getAtaque());
 			return true;
 		}
@@ -90,7 +92,9 @@ public class Darius extends EntidadAbstracta {
 	}
 
 	public Proyectil disparar() {
-		sonido.play();
+		Random random = new Random();
+		if (random.nextBoolean()) sonido1.play();
+		else sonido2.play();
 		return new Proyectil(new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),1,RecursosExternos.laser);
 	}
 
@@ -135,6 +139,6 @@ public class Darius extends EntidadAbstracta {
 	@Override
 	public void dibujar(Graphics g) {
 		 g.drawRect(0, 0, 100, 100);
-		 g.drawImage(RecursosExternos.player,getX(),getY(), null);
+		 g.drawImage(textura,getX(),getY(), null);
 	}
 }
