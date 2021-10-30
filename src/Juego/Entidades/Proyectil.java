@@ -3,7 +3,6 @@ package Juego.Entidades;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import Juego.Graficos.RecursosExternos;
 import Juego.Utils.Angulo;
 import Juego.Utils.Circulo;
 import Juego.Utils.Punto;

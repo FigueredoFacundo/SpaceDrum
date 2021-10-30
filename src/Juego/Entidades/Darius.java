@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import Juego.Graficos.RecursosExternos;
 import Juego.Utils.Circulo;
 import Juego.Utils.Punto;
+import Juego.Utils.Sonido;
 import Juego.input.KeyBoard;
 
 public class Darius extends EntidadAbstracta {
@@ -15,8 +16,7 @@ public class Darius extends EntidadAbstracta {
 	private double vida;
 	private Proyectil proyectil;
 	private boolean invulnerable;
-	
-	
+	private Sonido sonido;
 	
 	public double getVida() {
 		return vida;
@@ -62,6 +62,11 @@ public class Darius extends EntidadAbstracta {
 		this.vidaMax = vida;
 		this.vida = this.vidaMax;
 		this.clave = clave;
+		try {
+			this.sonido = new Sonido("Recursos/sonidos/bullet2.wav");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	
@@ -85,6 +90,7 @@ public class Darius extends EntidadAbstracta {
 	}
 
 	public Proyectil disparar() {
+		sonido.play();
 		return new Proyectil(new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),1,RecursosExternos.laser);
 	}
 

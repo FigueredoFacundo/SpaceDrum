@@ -3,7 +3,7 @@ package Juego.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyBoard implements KeyListener{
+public class KeyBoard implements KeyListener {
 	
 	private boolean[] keys = new boolean[256];
 	
