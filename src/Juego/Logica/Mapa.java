@@ -141,7 +141,7 @@ public class Mapa {
 		double radio = aux.getRadio();
 		double x = aux.getX();
 		double y = aux.getY();
-		if (x - radio > 1000 || x + radio < -100 || y - radio > 800 || y + radio < -100)
+		if (x - radio > Constantes.ANCHO_PANTALLA || x + radio < -100 || y - radio > Constantes.ALTO_PANTALLA || y + radio < -100)
 			return true;
 		return false;
 
@@ -235,7 +235,7 @@ public class Mapa {
 				exp.remove(i);
 			}
 		}
-		cleanObjOutOfScreen(800, 1000);
+		cleanObjOutOfScreen(Constantes.ALTO_PANTALLA, Constantes.ANCHO_PANTALLA);
 		calcularColisiones();
 		firerate.update();
 		cd.update();
