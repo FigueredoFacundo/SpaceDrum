@@ -102,7 +102,7 @@ public class Mapa {
 		}
 	}
 
-	public void cleanObjOutOfScreen(int altura, int ancho) {
+	public void cleanObjOutOfScreen() {
 		ArrayList<EntidadAbstracta> eliminacion = new ArrayList<EntidadAbstracta>();
 		for (Proyectil proyectil : proyectilesEnemigos) {
 
@@ -235,7 +235,7 @@ public class Mapa {
 				exp.remove(i);
 			}
 		}
-		cleanObjOutOfScreen(Constantes.ALTO_PANTALLA, Constantes.ANCHO_PANTALLA);
+		cleanObjOutOfScreen();
 		calcularColisiones();
 		firerate.update();
 		cd.update();
