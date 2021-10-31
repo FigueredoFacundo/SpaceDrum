@@ -23,9 +23,10 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	private final int FPS = 60;
-	private final double TARGETTIME = 1000 / FPS;
-	private double delta = 0;
-	private int AVERAGEFPS = FPS;
+	private final int SECOND = 1000;
+	private final int SKIP_FRAMES = SECOND / FPS;
+	private final int TICKS_PER_SECOND = 60;
+	private final int SKIP_TICKS = SECOND / TICKS_PER_SECOND;
 	int x = 0;
 	private Mapa mapa;
 	private KeyBoard teclado;
@@ -59,20 +60,18 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 
 	@Override
 	public void run() {
-		long now = 0;
-		long lastTime = System.nanoTime();
+		long next_game_tick = System.currentTimeMillis();
+		//long next_game_frame = System.currentTimeMillis();
+		//long next_game_calc = System.currentTimeMillis();
+
 		int frames = 0;
-		long time = 0;
+		//long time = 0;
 		long paused = 0;
 		long backgroundDelay = 0;
-		
+
 		while (running) {
-			now = System.nanoTime();
-			delta += (now - lastTime) / TARGETTIME;
-			lastTime = now;
-			time+=(now-lastTime);
-			
-			if (delta >= 1) {
+
+			if (System.currentTimeMillis() > next_game_tick) {
 				if (KeyBoard.P && frames > paused +120) {
 					this.partidaPausada = !this.partidaPausada;
 					paused = frames;
@@ -87,10 +86,11 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 				}
 
 				g = bs.getDrawGraphics();
+				next_game_tick += SKIP_TICKS;
 				
 				
 				// zona dibujo-------------------------------------------------------------
-				if (frames > backgroundDelay +30 && !this.partidaPausada) {
+				if (frames > backgroundDelay  && !this.partidaPausada) {
 					g.drawImage(BackGroundGIf.getFrame(), 0, 0, Constantes.ANCHO_PANTALLA, Constantes.ALTO_PANTALLA, null);
 					backgroundDelay = frames;
 				}
@@ -115,20 +115,16 @@ public class VentanaPrincipal extends JFrame implements Runnable {
 				}
 				
 				
-				System.out.println(AVERAGEFPS);
+				
 				// -------------------------------------------------------------
 
 				g.dispose();
 				bs.show();
 
-				delta--;
+				
 				frames++;
 			}
-			if (time >= 1000000000) {
-				AVERAGEFPS=frames;
-				frames = 0;
-				time = 0;
-			}
+			
 		}
 		stop();
 	}

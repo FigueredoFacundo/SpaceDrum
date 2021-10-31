@@ -99,11 +99,11 @@ public class Enemigo extends EntidadAbstracta implements Cloneable {
 	}
 
 	public Proyectil disparar() {
-		return new Proyectil(10,new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),-1,new Angulo(180),2.0,RecursosExternos.laserRed);
+		return new Proyectil(10,new Circulo(new Punto(cuerpo.getX(),cuerpo.getY()),10.0),-1,new Angulo(180),10,RecursosExternos.laserRed);
 	}
 
 	public void avanzar() {
-		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(Math.toRadians(angulo.getValor()))/100,this.velocidad*Math.sin(Math.toRadians(angulo.getValor()))/100));
+		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(Math.toRadians(angulo.getValor())),this.velocidad*Math.sin(Math.toRadians(angulo.getValor()))));
 		
 	}
 

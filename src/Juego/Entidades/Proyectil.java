@@ -56,7 +56,7 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 		this.ataque = 10;
 		this.clave = clave;
 		this.angulo = new Angulo(0);
-		this.velocidad = 5;
+		this.velocidad = 25;
 	}
 
 	public Proyectil clone() {
@@ -92,7 +92,7 @@ public class Proyectil extends EntidadAbstracta implements Cloneable {
 	@Override
 	public void actualizar() {
 		//super.cuerpo.mover(new Punto(0.5,0));
-		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(Math.toRadians(angulo.getValor()))/10,this.velocidad*Math.sin(Math.toRadians(angulo.getValor()))/10));
+		super.cuerpo.mover(new Punto(this.velocidad*Math.cos(Math.toRadians(angulo.getValor())),this.velocidad*Math.sin(Math.toRadians(angulo.getValor()))));
 		
 		// TODO Auto-generated method stub
 		
